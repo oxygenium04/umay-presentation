@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="uz" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UMAY Biotech — Avtonom Dori Kashfiyot Platformasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        biotech: {
+                            950: '#040914',
+                            900: '#071124',
+                            800: '#0d1f3d',
+                            700: '#16325e',
+                            emerald: '#10b981',
+                            cyan: '#06b6d4',
+                            indigo: '#6366f1',
+                            amber: '#f59e0b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #040914;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(13, 31, 61, 0.55);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.16);
+        }
+        .glass-card-emerald {
+            background: rgba(6, 78, 59, 0.25);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .glow-emerald {
+            box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.25);
+        }
+        .glow-cyan {
+            box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.25);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #34d399 0%, #38bdf8 50%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(56, 189, 248, 0.12) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        /* Slide Mode styles */
+        body.slide-mode {
+            overflow: hidden;
+            height: 100vh;
+        }
+        body.slide-mode .slide-section {
+            display: none;
+            height: calc(100vh - 64px);
+            margin-top: 64px;
+            overflow-y: auto;
+            padding-top: 2rem;
+            padding-bottom: 5rem;
+            animation: fadeIn 0.35s ease-out;
+        }
+        body.slide-mode .slide-section.active-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #040914;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="bg-grid-pattern selection:bg-emerald-500 selection:text-slate-950">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 right-0 z-50 h-16 glass-card border-b border-slate-800/80 px-4 lg:px-8 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                <i data-lucide="dna" class="w-6 h-6 text-slate-950 stroke-[2.5]"></i>
+            </div>
+            <div>
+                <span class="font-display font-bold text-xl tracking-tight text-white">UMAY</span>
+                <span class="text-xs font-mono uppercase px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 ml-1.5">Biotech AI</span>
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="hidden xl:flex items-center gap-1 text-xs font-medium text-slate-300">
+            <button onclick="goToSlide(0)" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-slate-800/70 hover:text-emerald-400 transition">1. Kirish</button>
+            <button onclick="goToSlide(1)" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-slate-800/70 hover:text-emerald-400 transition">2. Jamoa</button>
+            <button onclick="goToSlide(2)" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-slate-800/70 hover:text-emerald-400 transition">3. StartUp & Muammo</button>
+            <button onclick="goToSlide(3)" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-slate-800/70 hover:text-emerald-400 transition">4. Ekotizim</button>
+            <button onclick="goToSlide(4)" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-slate-800/70 hover:text-emerald-400 transition">5. UMAY-1 (Bepul)</button>
+            <button onclick="goToSlide(5)" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-slate-800/70 hover:text-emerald-400 transition">6. UMAY-2 (De Novo)</button>
+            <button onclick="goToSlide(6)" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-slate-800/70 hover:text-emerald-400 transition">7. UMAY-3 & 4.1</button>
+            <button onclick="goToSlide(7)" class="nav-btn px-3 py-1.5 rounded-lg hover:bg-slate-800/70 hover:text-amber-400 transition">8. Bonus</button>
+        </nav>
+
+        <!-- Mode Controls -->
+        <div class="flex items-center gap-2">
+            <button id="modeToggleBtn" onclick="togglePresentationMode()" class="flex items-center gap-2 text-xs font-semibold px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 hover:opacity-95 transition shadow-md shadow-emerald-500/20">
+                <i data-lucide="presentation" class="w-4 h-4"></i>
+                <span id="modeToggleText">Slayd Rejimi</span>
+            </button>
+            <button onclick="toggleFullScreen()" title="To'liq ekran (Fullscreen)" class="p-2 rounded-xl glass-card text-slate-300 hover:text-white hover:border-cyan-400/50 transition">
+                <i data-lucide="maximize-2" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main id="slidesContainer" class="pt-16">
+
+        <!-- ==========================================
+             SLIDE 1: HERO / KIRISH
+             ========================================== -->
+        <section id="slide-0" class="slide-section active-slide min-h-[calc(100vh-4rem)] flex items-center justify-center px-6 py-16 relative overflow-hidden">
+            <div class="absolute -top-40 -left-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-40 -right-40 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="max-w-6xl mx-auto text-center z-10">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border border-emerald-500/30 text-emerald-300 text-xs font-mono mb-8">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    NEXT-GENERATION AUTONOMOUS DRUG DISCOVERY ECOSYSTEM
+                </div>
+
+                <h1 class="font-display text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight mb-6">
+                    Kasallik Nomidan <span class="gradient-text">Tasdiqlangan Target</span> va <span class="gradient-text">De Novo Dori</span> Dizaynigacha
+                </h1>
+
+                <p class="text-slate-300 text-lg sm:text-xl max-w-3xl mx-auto font-light leading-relaxed mb-10">
+                    UMAY — genetik sababiyat, hujayra tarmog'i (PPI), hayotiy organlar xavfsizlik qalqoni, <span class="text-cyan-400 font-medium">Closed-Loop Reinforcement Learning</span> va avtonom robotik laboratoriyalarni yagona zanjirda birlashtirgan sun'iy intellekt platformasi.
+                </p>
+
+                <!-- Key Metric Pills -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-12">
+                    <div class="glass-card p-5 rounded-2xl border-t-2 border-t-emerald-400">
+                        <div class="font-mono text-2xl sm:text-3xl font-bold text-white mb-1">&lt; 3 daqiqa</div>
+                        <div class="text-xs text-slate-400">Kasallikdan Top-3 3D Target va Modality qarorigacha</div>
+                    </div>
+                    <div class="glass-card p-5 rounded-2xl border-t-2 border-t-cyan-400">
+                        <div class="font-mono text-2xl sm:text-3xl font-bold text-emerald-400 mb-1">100% Bepul</div>
+                        <div class="text-xs text-slate-400">UMAY-1 Freemium modeli orqali global tadqiqotchilarga ochiq</div>
+                    </div>
+                    <div class="glass-card p-5 rounded-2xl border-t-2 border-t-indigo-400">
+                        <div class="font-mono text-2xl sm:text-3xl font-bold text-white mb-1">10,000+</div>
+                        <div class="text-xs text-slate-400">SELFIES va RL siklida skanerlanadigan De Novo molekulalar</div>
+                    </div>
+                    <div class="glass-card p-5 rounded-2xl border-t-2 border-t-amber-400">
+                        <div class="font-mono text-2xl sm:text-3xl font-bold text-amber-300 mb-1">IND Dossier</div>
+                        <div class="text-xs text-slate-400">FDA/EMA standartidagi 3 sahifalik rasmiy preklinik PDF hisobot</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <button onclick="goToSlide(1)" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 font-bold text-sm hover:opacity-95 transition flex items-center gap-2 shadow-lg shadow-emerald-500/20">
+                        <span>Taqdimotni Boshlash</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                    <button onclick="goToSlide(4)" class="px-7 py-3.5 rounded-xl glass-card text-slate-200 font-semibold text-sm hover:border-emerald-400/50 transition flex items-center gap-2">
+                        <i data-lucide="layers" class="w-4 h-4 text-emerald-400"></i>
+                        <span>UMAY-1 Arxitekturasi</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 2: BIZNING JAMOA (FOUNDERS)
+             ========================================== -->
+        <section id="slide-1" class="slide-section min-h-screen px-6 py-16 flex items-center">
+            <div class="max-w-6xl mx-auto w-full">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 border-b border-slate-800 pb-6">
+                    <div>
+                        <div class="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2">01 / ASOSCHILAR VA ILMIY-TEXNOLOGIK RAHBARIYAT</div>
+                        <h2 class="font-display text-3xl sm:text-5xl font-bold text-white">Bizning Jamoa</h2>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Founder: Umaraliev Sayidmurod -->
+                    <div class="glass-card rounded-3xl p-8 relative overflow-hidden group hover:border-emerald-500/40 transition duration-300 glow-emerald">
+                        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+                            <div class="w-36 h-44 sm:w-40 sm:h-48 rounded-2xl overflow-hidden border-2 border-emerald-400/40 shrink-0 shadow-xl bg-slate-900">
+                                <img id="img-sayidmurod" src="assets/sayidmurod.jpg" alt="Umaraliev Sayidmurod" class="w-full h-full object-cover object-center">
+                            </div>
+                            <div class="text-center sm:text-left">
+                                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono font-bold mb-3 border border-emerald-500/40">
+                                    <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                                    Founder &amp; Chief Algorithm Architect
+                                </div>
+                                <h3 class="font-display text-2xl sm:text-3xl font-bold text-white mb-2">Umaraliev Sayidmurod</h3>
+                                <p class="text-cyan-400 font-semibold text-sm mb-4">Molekulyar Biolog, Genetik Muhandis &amp; Bioinformatik</p>
+
+                                <div class="space-y-2 text-xs text-slate-300 mb-5">
+                                    <div class="flex items-center justify-center sm:justify-start gap-2">
+                                        <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                                        <span><strong>Masaryk University</strong> (Chexiya Respublikasi)</span>
+                                    </div>
+                                    <div class="flex items-center justify-center sm:justify-start gap-2">
+                                        <i data-lucide="graduation-cap" class="w-4 h-4 text-cyan-400 shrink-0"></i>
+                                        <span><strong>Bülent Ecevit University</strong> (Turkiya)</span>
+                                    </div>
+                                    <div class="flex items-center justify-center sm:justify-start gap-2">
+                                        <i data-lucide="dna" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                                        <span><strong>Platforma Algoritmlari Muallifi va Asoschisi</strong></span>
+                                    </div>
+                                </div>
+
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    UMAY loyihasining asoschisi (<strong>Founder</strong>) hamda dasturda qo'llanilgan barcha bioinformatik, genetik va biofizik algoritmlar arxitektori. Molekulyar biologiya, genetik muhandislik, <span class="text-white font-medium">Target Discovery</span> va <span class="text-white font-medium">De Novo</span> dori dizayni algoritmlari muallifi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Co-Founder: Aslbek Toshboyev -->
+                    <div class="glass-card rounded-3xl p-8 relative overflow-hidden group hover:border-cyan-500/40 transition duration-300 glow-cyan">
+                        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+                            <div class="w-36 h-44 sm:w-40 sm:h-48 rounded-2xl overflow-hidden border-2 border-cyan-400/40 shrink-0 shadow-xl bg-slate-900">
+                                <img id="img-aslbek" src="assets/aslbek.jpg" alt="Aslbek Toshboyev" class="w-full h-full object-cover object-center">
+                            </div>
+                            <div class="text-center sm:text-left">
+                                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-mono font-bold mb-3 border border-cyan-500/40">
+                                    <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+                                    Co-Founder &amp; Lead AI / Full-Stack Engineer
+                                </div>
+                                <h3 class="font-display text-2xl sm:text-3xl font-bold text-white mb-2">Aslbek Toshboyev</h3>
+                                <p class="text-emerald-400 font-semibold text-sm mb-4">Senior Data Scientist, AI Muhandis &amp; Avtonom Algoritmlar Mutaxassisi</p>
+
+                                <div class="space-y-2 text-xs text-slate-300 mb-5">
+                                    <div class="flex items-center justify-center sm:justify-start gap-2">
+                                        <i data-lucide="landmark" class="w-4 h-4 text-cyan-400 shrink-0"></i>
+                                        <span><strong>University of Arizona</strong> (AQSH)</span>
+                                    </div>
+                                    <div class="flex items-center justify-center sm:justify-start gap-2">
+                                        <i data-lucide="code-2" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+                                        <span><strong>Backend, Frontend &amp; AI Engineering</strong></span>
+                                    </div>
+                                    <div class="flex items-center justify-center sm:justify-start gap-2">
+                                        <i data-lucide="bot" class="w-4 h-4 text-cyan-400 shrink-0"></i>
+                                        <span><strong>Avtonom Algoritmlar va Tizimlar Arxitektori</strong></span>
+                                    </div>
+                                </div>
+
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    UMAY hammuassisi (<strong>Co-Founder</strong>), Senior Data Scientist va AI muhandisi. Platformaning <span class="text-white font-medium">Backend</span>, <span class="text-white font-medium">Frontend</span>, <span class="text-white font-medium">Deep Learning</span> hamda avtonom algoritmik tizimlarini ishlab chiqish va masshtablashtirish rahbari.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Synergy Banner -->
+                <div class="mt-8 glass-card rounded-2xl p-6 border-l-4 border-l-emerald-400 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400">
+                            <i data-lucide="sparkles" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-display font-bold text-white text-base">Biologiya va Sun'iy Intellekt Sinergiyasi</h4>
+                            <p class="text-xs text-slate-300">Evropa (Masaryk), Turkiya (BEUN) va AQSH (University of Arizona) ilmiy tajribasini birlashtirgan xalqaro ilmiy-texnologik jamoa.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 3: UMAY STARTUP NIMA? (MUAMMO VA YECHIM)
+             ========================================== -->
+        <section id="slide-2" class="slide-section min-h-screen px-6 py-16 flex items-center">
+            <div class="max-w-6xl mx-auto w-full">
+                <div class="mb-10 border-b border-slate-800 pb-6">
+                    <div class="text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">02 / STARTUP VIZIYASI VA GLOBAL MUAMMO</div>
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold text-white">UMAY StartUp Nima va Nega Kerak?</h2>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8 mb-10">
+                    <!-- Global Problem Card -->
+                    <div class="glass-card rounded-3xl p-8 border border-rose-500/30 relative overflow-hidden">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/15 text-rose-300 text-xs font-mono mb-4">
+                            <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+                            AN'ANAVIY FARMATSEVTIKA INQIROZI
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-white mb-4">Nega Dori Yaratish Shunchalik Qimmat va Sekin?</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                            Bugungi kunda bitta yangi dorini kashf etib, klinikaga olib chiqish o'rtacha <strong>12–15 yil</strong> vaqt va <strong>$2.5 milliarddan ortiq</strong> mablag' talab qiladi. Shunga qaramay, klinik sinovga kirgan har <strong>100 ta nomzoddan 90 tasi muvaffaqiyatsizlikka</strong> uchraydi.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-start gap-3.5">
+                                <div class="p-2 rounded-lg bg-rose-500/20 text-rose-400 mt-0.5"><i data-lucide="x-circle" class="w-4 h-4"></i></div>
+                                <div>
+                                    <div class="text-sm font-semibold text-white">1. Noto'g'ri Target Protein Tanlovi</div>
+                                    <div class="text-xs text-slate-400 mt-1">Tadqiqotchilar kasallikning asl genetik sababchisini emas, shunchaki ikkilamchi korrelyatsiya bo'lgan genlarni tanlab, yillarni yo'qotadilar.</div>
+                                </div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-start gap-3.5">
+                                <div class="p-2 rounded-lg bg-rose-500/20 text-rose-400 mt-0.5"><i data-lucide="heart-off" class="w-4 h-4"></i></div>
+                                <div>
+                                    <div class="text-sm font-semibold text-white">2. Kech Aniqlanadigan Organ Toksikligi (On-Target Toxicity)</div>
+                                    <div class="text-xs text-slate-400 mt-1">Tanlangan target yurak yoki jigarda ham hayotiy vazifa bajarishi faqat 2–3 yil o'tib, preklinik sinovlarda ma'lum bo'ladi.</div>
+                                </div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-start gap-3.5">
+                                <div class="p-2 rounded-lg bg-rose-500/20 text-rose-400 mt-0.5"><i data-lucide="help-circle" class="w-4 h-4"></i></div>
+                                <div>
+                                    <div class="text-sm font-semibold text-white">3. Modality Ko'rligi va Sintez Muammosi</div>
+                                    <div class="text-xs text-slate-400 mt-1">Qaysi target'ga Inhibitor, qaysi biriga PROTAC yoki Gene Therapy kerakligi oldindan tahlil qilinmaydi.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UMAY Solution Card -->
+                    <div class="glass-card-emerald rounded-3xl p-8 border border-emerald-500/40 relative overflow-hidden glow-emerald">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono mb-4">
+                            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+                            UMAY BIOTECH YECHIMI
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-white mb-4">Dori Kashfiyotida Deterministik Muhandislik</h3>
+                        <p class="text-sm text-slate-200 leading-relaxed mb-6">
+                            <strong>UMAY StartUp</strong> — dori yaratish jarayonini "tasodifiy sinov va xato" usulidan chiqarib, to'liq avtonom, biofizik qonuniyatlarga bo'ysunadigan <strong>sun'iy intellekt konveyeriga</strong> aylantiradi.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="p-4 rounded-2xl bg-slate-950/70 border border-emerald-500/30 flex items-start gap-3.5">
+                                <div class="p-2 rounded-lg bg-emerald-500/20 text-emerald-400 mt-0.5"><i data-lucide="dna" class="w-4 h-4"></i></div>
+                                <div>
+                                    <div class="text-sm font-semibold text-white">Genetik Sababiyat (2.5x Yuqori Klinik Muvaffaqiyat)</div>
+                                    <div class="text-xs text-slate-300 mt-1"><em>Nature Genetics</em> tadqiqotlariga ko'ra, GWAS va ClinVar inson DNK dalillariga tayangan target'lar klinik sinovdan <strong>2.5 barobar ko'proq</strong> muvaffaqiyatli o'tadi.</div>
+                                </div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-950/70 border border-emerald-500/30 flex items-start gap-3.5">
+                                <div class="p-2 rounded-lg bg-cyan-500/20 text-cyan-400 mt-0.5"><i data-lucide="shield-check" class="w-4 h-4"></i></div>
+                                <div>
+                                    <div class="text-sm font-semibold text-white">1-Kundanoq Hayotiy Organlar Xavfsizlik Qalqoni</div>
+                                    <div class="text-xs text-slate-300 mt-1">Yurak, jigar, miya va buyrakdagi bazal ekspressiyani 3 daqiqada tekshirib, xavfli target'larni kimyoviy sintez boshlanishidan oldin elaydi.</div>
+                                </div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-950/70 border border-emerald-500/30 flex items-start gap-3.5">
+                                <div class="p-2 rounded-lg bg-indigo-500/20 text-indigo-400 mt-0.5"><i data-lucide="bot" class="w-4 h-4"></i></div>
+                                <div>
+                                    <div class="text-sm font-semibold text-white">In Silico Dizayndan Avtonom Robotik Laboratoriyagacha</div>
+                                    <div class="text-xs text-slate-300 mt-1">Target kashfiyoti (UMAY-1), De Novo molekula sintezi (UMAY-2), Gen terapiyasi (UMAY-3) va bulutli robotik laboratoriya (UMAY-4.1) yagona ekotizimda.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 4: UMAY EKOTIZIMI (ROADMAP OVERVIEW)
+             ========================================== -->
+        <section id="slide-3" class="slide-section min-h-screen px-6 py-16 flex items-center">
+            <div class="max-w-6xl mx-auto w-full">
+                <div class="mb-10 border-b border-slate-800 pb-6">
+                    <div class="text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2">03 / BIZNES STRATEGIYA VA PLATFORMALAR ARXITEKTURASI</div>
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold text-white">UMAY Ekotizimi: Bosqichma-Bosqich Rivojlanish Rejasi</h2>
+                </div>
+
+                <!-- 4 Pillar Cards -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- UMAY 1 -->
+                    <div class="glass-card rounded-2xl p-6 border-t-4 border-t-emerald-400 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-display font-bold text-xl text-white">UMAY-1</span>
+                                <span class="px-2.5 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">100% BEPUL</span>
+                            </div>
+                            <h4 class="font-semibold text-emerald-400 text-sm mb-2">Target va Modality Kashfiyot Dvigateli</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                                Kasallik nomidan kelib chiqib, 5 bosqichli biofizik filtr orqali eng ishonchli <strong>Top-3 Target Protein</strong>ni aniqlaydi va unga qaysi tibbiy vosita (Inhibitor, PROTAC, Activator yoki Gene Therapy) kerakligiga avtonom qaror beradi.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                            <span>Global Freemium</span>
+                            <button onclick="goToSlide(4)" class="text-emerald-400 hover:underline">Batafsil →</button>
+                        </div>
+                    </div>
+
+                    <!-- UMAY 2 -->
+                    <div class="glass-card rounded-2xl p-6 border-t-4 border-t-cyan-400 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-display font-bold text-xl text-white">UMAY-2</span>
+                                <span class="px-2.5 py-1 rounded-full text-xs font-mono font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">PRO / TIJORIY</span>
+                            </div>
+                            <h4 class="font-semibold text-cyan-400 text-sm mb-2">De Novo Kichik Molekula &amp; PROTAC Dizayni</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                                Target oqsilning 3D bog'lanish pocket'iga mos keluvchi yangi molekulalarni <strong>Closed-Loop RL</strong>, <strong>AutoDock Vina</strong> va <strong>OpenMM MD</strong> simulyatsiyalari yordamida noldan loyihalaydi va 3 sahifalik IND PDF Dossier beradi.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                            <span>Asosiy SaaS model</span>
+                            <button onclick="goToSlide(5)" class="text-cyan-400 hover:underline">Batafsil →</button>
+                        </div>
+                    </div>
+
+                    <!-- UMAY 3 -->
+                    <div class="glass-card rounded-2xl p-6 border-t-4 border-t-indigo-400 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-display font-bold text-xl text-white">UMAY-3</span>
+                                <span class="px-2.5 py-1 rounded-full text-xs font-mono font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/40">GEN TERAPIYA</span>
+                            </div>
+                            <h4 class="font-semibold text-indigo-400 text-sm mb-2">Gen Terapiyasi va Genetik Muhandislik</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                                Hujayrada gen butunlay o'chirilgan (Total Loss of Function) va oqsil sintezlanmaydigan kasalliklar uchun <strong>AAV Capsid</strong> tanlovi, promotor dizayni, <strong>Codon Optimization</strong> va <strong>CRISPR</strong> yechimlarini yaratadi.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                            <span>Kamyob kasalliklar</span>
+                            <button onclick="goToSlide(6)" class="text-indigo-400 hover:underline">Batafsil →</button>
+                        </div>
+                    </div>
+
+                    <!-- UMAY 4.1 -->
+                    <div class="glass-card rounded-2xl p-6 border-t-4 border-t-purple-400 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="font-display font-bold text-xl text-white">UMAY-4.1</span>
+                                <span class="px-2.5 py-1 rounded-full text-xs font-mono font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/40">CLOUD LAB</span>
+                            </div>
+                            <h4 class="font-semibold text-purple-400 text-sm mb-2">Bulutli Avtonom Laboratoriya Integratsiyasi</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                                Raqamli dizaynni (<em>in silico</em>) API orqali bulutli robotik laboratoriyalarga (<strong>Strateos, Emerald Cloud Lab</strong>) ulab, fizik tajribalar o'tkazadi va olingan real <strong>K<sub>d</sub></strong> hamda <strong>IC<sub>50</sub></strong> natijalari bilan AI'ni qayta o'qitadi.
+                            </p>
+                        </div>
+                        <div class="pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+                            <span>Bulutli robotik API</span>
+                            <button onclick="goToSlide(6)" class="text-purple-400 hover:underline">Batafsil →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 5: UMAY-1 CHUQUR TAHLIL
+             ========================================== -->
+        <section id="slide-4" class="slide-section min-h-screen px-6 py-16 flex items-center">
+            <div class="max-w-6xl mx-auto w-full">
+                <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-8 border-b border-slate-800 pb-6 gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-emerald-400 mb-2">
+                            <span>04 / UMAY-1 CHUQUR TAHLIL</span>
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">100% BEPUL TARIF</span>
+                        </div>
+                        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white">UMAY-1: Avtonom Target va Modality Kashfiyoti</h2>
+                    </div>
+
+                    <!-- Sub-tabs for UMAY-1 -->
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="switchUmay1Tab('comp')" id="u1-btn-comp" class="px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-500 text-slate-950 transition">1. Raqobatchilar Tahlili</button>
+                        <button onclick="switchUmay1Tab('flow')" id="u1-btn-flow" class="px-4 py-2 rounded-xl text-xs font-semibold glass-card text-slate-300 hover:text-white transition">2. 5-Bosqichli Pipeline</button>
+                        <button onclick="switchUmay1Tab('router')" id="u1-btn-router" class="px-4 py-2 rounded-xl text-xs font-semibold glass-card text-slate-300 hover:text-white transition">3. Modality Qaror Daraxti</button>
+                    </div>
+                </div>
+
+                <!-- UMAY-1 TAB 1: 4-WAY COMPETITION TABLE -->
+                <div id="u1-tab-comp" class="space-y-6">
+                    <div class="glass-card rounded-2xl overflow-hidden border border-slate-800">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="bg-slate-900/90 border-b border-slate-800 text-slate-300 font-display text-sm">
+                                        <th class="p-4 font-semibold">Mezon / Xususiyat</th>
+                                        <th class="p-4 font-semibold text-slate-400">1. An'anaviy Tadqiqotchi</th>
+                                        <th class="p-4 font-semibold text-slate-400">2. Tarqoq Dasturlar (OpenTargets, DisGeNET)</th>
+                                        <th class="p-4 font-semibold text-cyan-300">3. Tijoriy AI Platformalar (PandaOmics va b.)</th>
+                                        <th class="p-4 font-bold text-emerald-400 bg-emerald-950/30 border-l border-emerald-500/30">4. UMAY-1 (Bizning Yechim)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-800/70 text-slate-300">
+                                    <tr>
+                                        <td class="p-4 font-semibold text-white">Asosiy Metodologiya</td>
+                                        <td class="p-4">Manuel PubMed, UniProt va NCBI maqolalarini o'qish</td>
+                                        <td class="p-4">Alohida-alohida bazalardan qo'lda ma'lumot yig'ish</td>
+                                        <td class="p-4">Asosan transkriptomik (omiks) va NLP matn qidiruvi</td>
+                                        <td class="p-4 bg-emerald-950/20 border-l border-emerald-500/30 text-emerald-200 font-medium"><strong>5 Qatlamli Integratsiya:</strong> Inson Genetikasi + PPI Network + Organ Shield + 3D Pocket</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 font-semibold text-white">Tahlil Vaqti</td>
+                                        <td class="p-4 text-rose-400 font-mono">3 oydan 6 oygacha</td>
+                                        <td class="p-4 text-amber-400 font-mono">Haftalar</td>
+                                        <td class="p-4 text-cyan-300 font-mono">Soatlar / Kunlar</td>
+                                        <td class="p-4 bg-emerald-950/20 border-l border-emerald-500/30 text-emerald-400 font-mono font-bold">&lt; 3 Daqiqa (To'liq Avtonom)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 font-semibold text-white">3D Biofizika &amp; Pocket Integratsiyasi</td>
+                                        <td class="p-4">Mavjud emas (PDB'dan alohida qidiriladi)</td>
+                                        <td class="p-4">Mavjud emas (Struktura dasturlari uzilgan)</td>
+                                        <td class="p-4"><strong>Zaif / Uzilgan:</strong> Omiksga tayangan; 3D pocket masalasi kimyogarlarga qoldiriladi</td>
+                                        <td class="p-4 bg-emerald-950/20 border-l border-emerald-500/30 text-emerald-200"><strong>To'g'ridan-to'g'ri:</strong> RCSB PDB yoki <strong>AlphaFold AI 3D</strong> koordinatalarini darhol yuklaydi</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 font-semibold text-white">Hayotiy Organlar Xavfsizlik Qalqoni</td>
+                                        <td class="p-4">Mavjud emas (Hayvon sinovida ma'lum bo'ladi)</td>
+                                        <td class="p-4">Tadqiqotchi HPA'dan qo'lda tekshirishi shart</td>
+                                        <td class="p-4">Asosan kasal to'qimaga qaraydi; yurak/jigar xavfsizligi ikkinchi darajali</td>
+                                        <td class="p-4 bg-emerald-950/20 border-l border-emerald-500/30 text-emerald-200"><strong>Proaktiv HPA Qalqoni:</strong> Yurak, jigar va miyada xavfli genlarni 1-daqiqada elaydi</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 font-semibold text-white">Terapevtik Modality Qarori</td>
+                                        <td class="p-4">Mavjud emas (Odatiy inhibitor qilinadi)</td>
+                                        <td class="p-4">Mavjud emas (Faqat gen ro'yxatini beradi)</td>
+                                        <td class="p-4 text-rose-300"><strong>Modality Ko'rligi:</strong> Inhibitor, PROTAC yoki Gene Therapy tanlovini qila olmaydi</td>
+                                        <td class="p-4 bg-emerald-950/20 border-l border-emerald-500/30 text-emerald-300 font-semibold"><strong>Avtonom Router:</strong> Patologiyaga qarab eng to'g'ri modality'ni belgilaydi</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4 font-semibold text-white">Narx va Foydalanish</td>
+                                        <td class="p-4">Yuqori mehnat va vaqt sarfi</td>
+                                        <td class="p-4">Bepul, ammo katta bioinformatik jamoa kerak</td>
+                                        <td class="p-4 text-rose-400 font-mono">$50,000 – $150,000 / yil</td>
+                                        <td class="p-4 bg-emerald-950/20 border-l border-emerald-500/30 text-emerald-400 font-mono font-bold">100% BEPUL (Freemium)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UMAY-1 TAB 2: 5-STAGE PIPELINE WORKFLOW -->
+                <div id="u1-tab-flow" class="hidden space-y-4">
+                    <div class="grid md:grid-cols-5 gap-4">
+                        <!-- Stage 1 -->
+                        <div class="glass-card p-5 rounded-2xl border-t-2 border-t-emerald-400">
+                            <div class="text-xs font-mono text-emerald-400 mb-1">1-BOSQICH (Stage 1)</div>
+                            <h4 class="font-display font-bold text-white text-sm mb-2">EFO Ontologiyasi &amp; Genetik Sababiyat</h4>
+                            <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
+                                Kasallik nomi xalqaro EFO ID'ga (masalan, <code class="text-emerald-300">EFO_0000518</code>) o'giriladi. <strong>Open Targets GraphQL API</strong> orqali GWAS, ClinVar va somatik mutatsiyalar tahlil qilinadi.
+                            </p>
+                            <div class="p-2.5 rounded-xl bg-slate-950/80 font-mono text-[10px] text-emerald-300 border border-slate-800">
+                                S_gen = 0.40·Overall + 0.30·Genetics + 0.15·Somatic + 0.15·Clinical<br>
+                                <span class="text-slate-400">5,000 gen ➔ Top 50 Driver Gen</span>
+                            </div>
+                        </div>
+
+                        <!-- Stage 2 -->
+                        <div class="glass-card p-5 rounded-2xl border-t-2 border-t-cyan-400">
+                            <div class="text-xs font-mono text-cyan-400 mb-1">2-BOSQICH (Stage 2)</div>
+                            <h4 class="font-display font-bold text-white text-sm mb-2">PPI Tarmoq &amp; Centrality Tahlili</h4>
+                            <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
+                                <strong>STRING DB v12 API</strong> va <strong>NetworkX</strong> yordamida hujayra ichidagi oqsillar aloqa tarmog'i quriladi. <em>Degree</em> (tugun) va <em>Betweenness</em> (ko'prik) markaziyligi o'lchanadi.
+                            </p>
+                            <div class="p-2.5 rounded-xl bg-slate-950/80 font-mono text-[10px] text-cyan-300 border border-slate-800">
+                                S_net = 0.15 + 0.85·(0.5·Deg + 0.5·Bet)<br>
+                                <span class="text-slate-400">50 gen ➔ 15-20 Master Regulator</span>
+                            </div>
+                        </div>
+
+                        <!-- Stage 3 -->
+                        <div class="glass-card p-5 rounded-2xl border-t-2 border-t-rose-400">
+                            <div class="text-xs font-mono text-rose-400 mb-1">3-BOSQICH (Stage 3)</div>
+                            <h4 class="font-display font-bold text-white text-sm mb-2">HPA Hayotiy Organlar Qalqoni</h4>
+                            <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
+                                <strong>The Human Protein Atlas (HPA)</strong> orqali 5 ta hayotiy organ tekshiriladi: Yurak (1.0), Jigar (0.90), Miya (0.85), Buyrak (0.80), Suyak ko'migi (0.75).
+                            </p>
+                            <div class="p-2.5 rounded-xl bg-slate-950/80 font-mono text-[10px] text-rose-300 border border-slate-800">
+                                Yurak = "High" yoki S_safe &lt; 0.30 ➔ ELANADI!<br>
+                                <span class="text-slate-400">15-20 gen ➔ ~8-10 Xavfsiz Target</span>
+                            </div>
+                        </div>
+
+                        <!-- Stage 4 -->
+                        <div class="glass-card p-5 rounded-2xl border-t-2 border-t-indigo-400">
+                            <div class="text-xs font-mono text-indigo-400 mb-1">4-BOSQICH (Stage 4)</div>
+                            <h4 class="font-display font-bold text-white text-sm mb-2">Tractability &amp; Katta Final Formulasi</h4>
+                            <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
+                                <strong>ChEMBL</strong> va Open Targets orqali oqsilning kichik molekula, antikor yoki PROTAC bilan bog'lanish qobiliyati (<code class="text-indigo-300">S_drug</code>) baholanadi.
+                            </p>
+                            <div class="p-2.5 rounded-xl bg-slate-950/80 font-mono text-[10px] text-indigo-300 border border-slate-800">
+                                Final = 0.35·S_gen + 0.25·S_net + 0.20·S_safe + 0.20·S_drug<br>
+                                <span class="text-slate-400">➔ TOP-3 CHEMPION TARGET</span>
+                            </div>
+                        </div>
+
+                        <!-- Stage 5 -->
+                        <div class="glass-card p-5 rounded-2xl border-t-2 border-t-amber-400">
+                            <div class="text-xs font-mono text-amber-400 mb-1">5-BOSQICH (Stage 5)</div>
+                            <h4 class="font-display font-bold text-white text-sm mb-2">RCSB PDB &amp; AlphaFold 3D</h4>
+                            <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
+                                Top-3 target uchun avval <strong>RCSB PDB</strong>'dan eksperimental X-ray/Cryo-EM kristali qidiriladi. Kristali bo'lmasa, <strong>DeepMind AlphaFold DB</strong>'dan AI 3D modeli yuklanadi.
+                            </p>
+                            <div class="p-2.5 rounded-xl bg-slate-950/80 font-mono text-[10px] text-amber-300 border border-slate-800">
+                                Eksperimental .pdb yoki AlphaFold pLDDT &gt; 80<br>
+                                <span class="text-slate-400">➔ 3D Atomik Koordinatalar Tayyor</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UMAY-1 TAB 3: AUTONOMOUS MODALITY ROUTER -->
+                <div id="u1-tab-router" class="hidden space-y-4">
+                    <div class="glass-card p-6 rounded-2xl border border-slate-800">
+                        <div class="text-xs font-mono text-emerald-400 mb-2">CENTRAL THERAPEUTIC MODALITIES ROUTER (src/core/router.py)</div>
+                        <h3 class="font-display text-xl font-bold text-white mb-4">Top-3 Target Uchun Avtonom Terapevtik Modality Qaror Daraxti</h3>
+                        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div class="p-4 rounded-xl bg-slate-900/90 border border-emerald-500/30">
+                                <div class="text-xs font-mono font-bold text-emerald-400 mb-1">1. INHIBITOR</div>
+                                <div class="text-sm font-bold text-white mb-2">Kichik Molekula Inhibitori</div>
+                                <p class="text-xs text-slate-300 mb-3">
+                                    <strong>Biologik shart:</strong> Oqsil haddan tashqari faol (<em>Gain-of-Function / Overexpression</em>) VA yuzasida chuqur, dori o'tirishi mumkin bo'lgan 3D katalitik pocket mavjud.
+                                </p>
+                                <div class="text-[11px] font-mono text-slate-400">Misol: Glioblastoma'da TERT yoki EGFR</div>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-slate-900/90 border border-cyan-500/30">
+                                <div class="text-xs font-mono font-bold text-cyan-400 mb-1">2. PROTAC</div>
+                                <div class="text-sm font-bold text-white mb-2">Maqsadli Protein Yemiruvchi</div>
+                                <p class="text-xs text-slate-300 mb-3">
+                                    <strong>Biologik shart:</strong> Oqsil klassik inhibitorlarga chidamli (rezistent) YOKI uning yuzasi silliq/sayoz (<em>Undruggable Scaffold</em>). E3 Ligase chaqirib oqsilni parchalaydi.
+                                </p>
+                                <div class="text-[11px] font-mono text-slate-400">Misol: BRD4, STAT3, AR-V7, KRAS</div>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-slate-900/90 border border-indigo-500/30">
+                                <div class="text-xs font-mono font-bold text-indigo-400 mb-1">3. ACTIVATOR</div>
+                                <div class="text-sm font-bold text-white mb-2">Allosterik Aktivator / Shaperon</div>
+                                <p class="text-xs text-slate-300 mb-3">
+                                    <strong>Biologik shart:</strong> Gen mutatsiyaga uchragan va oqsil sust ishlamoqda (<em>Partial Loss of Function / Haploinsufficiency</em>). Oqsil faolligini oshiradi.
+                                </p>
+                                <div class="text-[11px] font-mono text-slate-400">Misol: Cystic Fibrosis (CFTR), SCN1A</div>
+                            </div>
+
+                            <div class="p-4 rounded-xl bg-slate-900/90 border border-amber-500/30">
+                                <div class="text-xs font-mono font-bold text-amber-400 mb-1">4. GENE THERAPY</div>
+                                <div class="text-sm font-bold text-white mb-2">AAV Kapsid / CRISPR Gen Terapiyasi</div>
+                                <p class="text-xs text-slate-300 mb-3">
+                                    <strong>Biologik shart:</strong> Gen butunlay o'chirilgan (<em>Biallelic Deletion / Nonsense</em>) va hujayrada oqsil umuman sintezlanmaydi (<em>Total Loss of Function</em>).
+                                </p>
+                                <div class="text-[11px] font-mono text-slate-400">Misol: SMA (SMN1), Duchenne (DMD), MPS IIIC</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 6: UMAY-2 CHUQUR TAHLIL (DE NOVO DESIGN)
+             ========================================== -->
+        <section id="slide-5" class="slide-section min-h-screen px-6 py-16 flex items-center">
+            <div class="max-w-6xl mx-auto w-full">
+                <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-8 border-b border-slate-800 pb-6 gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">
+                            <span>05 / UMAY-2 CHUQUR TAHLIL</span>
+                            <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">DE NOVO MOLECULE ENGINE</span>
+                        </div>
+                        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white">UMAY-2: De Novo Molekula Dizayni va IND Dossier</h2>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="switchUmay2Tab('arch')" id="u2-btn-arch" class="px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-slate-950 transition">1. 7-Fazali Arxitektura</button>
+                        <button onclick="switchUmay2Tab('rl')" id="u2-btn-rl" class="px-4 py-2 rounded-xl text-xs font-semibold glass-card text-slate-300 hover:text-white transition">2. Closed-Loop RL &amp; MedChem</button>
+                        <button onclick="switchUmay2Tab('ind')" id="u2-btn-ind" class="px-4 py-2 rounded-xl text-xs font-semibold glass-card text-slate-300 hover:text-white transition">3. Otonom Auditor &amp; IND PDF</button>
+                    </div>
+                </div>
+
+                <!-- UMAY-2 TAB 1: 7-PHASE ARCHITECTURE -->
+                <div id="u2-tab-arch" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-l-emerald-400">
+                        <div class="text-xs font-mono text-emerald-400 mb-1">FAZ 1 • pocket_detector.py</div>
+                        <h4 class="font-display font-bold text-white text-sm mb-2">3D Pocket va Grid Box Aniqlash</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            UMAY-1'dan kelgan <code class="text-emerald-300">.pdb</code> tuzilmasidagi katalitik bo'shliqning aniq markazi <code class="text-cyan-300">(center_x, center_y, center_z)</code> va 20×20×20 Å quti o'lchamlari avtomatik hisoblanadi.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-l-cyan-400">
+                        <div class="text-xs font-mono text-cyan-400 mb-1">FAZ 2 • selfies_generator.py</div>
+                        <h4 class="font-display font-bold text-white text-sm mb-2">SELFIES va Tug'ilish Filtri</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            100% kimyoviy yaroqli <strong>SELFIES</strong> alifbosi. Sof uglevodorodlar taqiqlanadi: kamida <strong>2 ta Heteroatom (N, O, S)</strong>, <code class="text-cyan-300">20 ≤ TPSA ≤ 140 Å²</code>, <code class="text-cyan-300">HBD+HBA ≥ 2</code> va <code class="text-cyan-300">MW ≥ 220 Da</code> shart.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-l-indigo-400">
+                        <div class="text-xs font-mono text-indigo-400 mb-1">FAZ 3 • generation_manager.py</div>
+                        <h4 class="font-display font-bold text-white text-sm mb-2">Closed-Loop RL (10k ➔ 100 Docking)</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Har siklda 1,000 ta molekula yaratilib, Bayesian tanlov orqali eng yaxshi 20 tasi <strong>AutoDock Vina</strong> bilan dock qilinadi. 5 sikl davomida AI yuqori mukofotli (Reward) kimyoviy motivlarni o'rganadi.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-l-purple-400">
+                        <div class="text-xs font-mono text-purple-400 mb-1">FAZ 4 • VinaDocker &amp; RDKit</div>
+                        <h4 class="font-display font-bold text-white text-sm mb-2">Fizikaviy Docking va MPO Skori</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            <strong>Meeko</strong> orqali 3D konformatsiya va PDBQT zaryadlari tayyorlanadi. <strong>MPO Cost</strong> = Vina bog'lanish energiyasi (kcal/mol) + Lipinski + <strong>SA Score</strong> (Sintetik osonlik) + QED.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-l-amber-400">
+                        <div class="text-xs font-mono text-amber-400 mb-1">FAZ 5 • dynamic_md_sim.py</div>
+                        <h4 class="font-display font-bold text-white text-sm mb-2">10 ns Molekulyar Dinamika &amp; PLIP</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Molekulaning fiziologik suv muhitida pocket ichida qolish barqarorligi (<strong>Pocket Retention %</strong>), <strong>RMSD (Å)</strong> va <strong>PLIP</strong> atomik bog'lanishlari (H-Bond, π-π stacking, Hydrophobic) o'lchanadi.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-l-teal-400">
+                        <div class="text-xs font-mono text-teal-400 mb-1">FAZ 6 • comprehensive_admet.py</div>
+                        <h4 class="font-display font-bold text-white text-sm mb-2">ADMET &amp; Farmakokinetik Profil</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Plazma oqsillariga bog'lanish (<strong>PPB %</strong>), erkin fraksiya (<code class="text-teal-300">fu = 100 - PPB</code>), Kan-Miya Baryeri (<strong>logBB</strong>), <strong>hERG</strong> kardiotoksiklik va CYP450 metabolik barqarorlik.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-l-emerald-400 lg:col-span-2 bg-emerald-950/20">
+                        <div class="text-xs font-mono text-emerald-400 mb-1">FAZ 7 • self_auditor.py &amp; pdf_dossier_generator.py</div>
+                        <h4 class="font-display font-bold text-white text-sm mb-2">UmayAutonomousAuditor (QA) &amp; 3 Sahifalik Rasmiy IND PDF Dossier</h4>
+                        <p class="text-xs text-slate-200 leading-relaxed">
+                            Natija foydalanuvchiga ko'rsatilishidan oldin <strong>5 qatlamli ichki auditor</strong> barcha jadvallar o'rtasidagi biofizik va matematik muvofiqlikni tekshiradi, ikiz (duplicate) SMILES'larni tozalaydi va <strong>ReportLab</strong> yordamida xalqaro regulyator standartidagi 3 sahifalik preklinik PDF Dossier'ni yaratadi.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- UMAY-2 TAB 2: CLOSED LOOP RL & MEDCHEM -->
+                <div id="u2-tab-rl" class="hidden">
+                    <div class="grid lg:grid-cols-2 gap-6">
+                        <div class="glass-card p-6 rounded-2xl">
+                            <h3 class="font-display text-lg font-bold text-white mb-3">Aqlli Closed-Loop RL Sikli</h3>
+                            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                                10,000 ta molekulani bittadan dock qilish haftalar oladi. UMAY-2 esa <strong>Active Learning</strong> orqali buni bir necha daqiqada bajaradi:
+                            </p>
+                            <div class="space-y-3 text-xs">
+                                <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                                    <span class="text-slate-300">1. Har siklda generatsiya qilinadigan hovuz:</span>
+                                    <span class="font-mono font-bold text-emerald-400">1,000 ta SELFIES molekula</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                                    <span class="text-slate-300">2. Bayesian tanlov orqali Vina Docking:</span>
+                                    <span class="font-mono font-bold text-cyan-400">Top 20 ta nomzod / sikl</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                                    <span class="text-slate-300">3. Reward (Mukofot) funksiyasi:</span>
+                                    <span class="font-mono font-bold text-indigo-400">|-Cost| × (MD Retention / 100)</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                                    <span class="text-slate-300">4. CanonSmiles Deduplikatsiyasi:</span>
+                                    <span class="font-mono font-bold text-amber-400">100% Unikal Kimyoviy Tuzilmalar</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-6 rounded-2xl">
+                            <h3 class="font-display text-lg font-bold text-white mb-3">Tibbiy Kimyo (MedChem) Qalqoni</h3>
+                            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                                Kimyo professorlari va regulyatorlar rad etadigan "soxta" molekulalar tug'ilishidayoq bloklanadi:
+                            </p>
+                            <ul class="space-y-2.5 text-xs text-slate-300">
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                                    <span><strong>Sof Uglevodorod Taqiqi:</strong> Suvda erimaydigan naftalin/benzol kabi sof uglevodorodlar (<code class="text-rose-300">TPSA = 0</code>) avtomatik elanadi; kamida 2 ta heteroatom (N, O, S) majburiy.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                                    <span><strong>Lead-Like Molekulyar Og'irlik:</strong> Juda kichik fragmentlar o'rniga haqiqiy dori nomzodlari uchun <code class="text-emerald-300">MW ≥ 220 Da</code> chegarasi.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i data-lucide="check" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                                    <span><strong>SA Score (Sintetik Osonlik):</strong> Laboratoriyada sintez qilib bo'lmaydigan murakkab qafasli tuzilmalarga MPO funksiyasida jarima beriladi.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UMAY-2 TAB 3: SELF-AUDITOR & IND PDF -->
+                <div id="u2-tab-ind" class="hidden">
+                    <div class="glass-card p-6 rounded-2xl border border-cyan-500/30">
+                        <div class="grid lg:grid-cols-3 gap-6">
+                            <div class="lg:col-span-2 space-y-4">
+                                <div class="text-xs font-mono text-cyan-400">AUTONOMOUS QA &amp; SELF-HEALING ENGINE (src/core/self_auditor.py)</div>
+                                <h3 class="font-display text-xl font-bold text-white">5 Qatlamli Avtonom Ichki Auditor va IND PDF Dossier</h3>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Har bir simulyatsiya yakunida <code class="text-emerald-300">UmayAutonomousAuditor</code> barcha biofizik ko'rsatkichlarni tekshiradi:
+                                </p>
+                                <div class="grid sm:grid-cols-2 gap-3 text-xs">
+                                    <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+                                        <div class="font-semibold text-emerald-400 mb-1">1. H-Bond Persistence Muvofiqligi</div>
+                                        <div class="text-slate-400">Agar PLIP jadvalida H-Bond = 0 bo'lsa, MD jadvalidagi H-Bond Persistence avtomatik <code class="text-slate-200">0.0% (Hydrophobic / π-Driven)</code> qilib to'g'rilanadi.</div>
+                                    </div>
+                                    <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+                                        <div class="font-semibold text-cyan-400 mb-1">2. Elektrostatik Moslik</div>
+                                        <div class="text-slate-400">Manfiy zaryadli karboksilat guruhlari (<code class="text-slate-200">-C(=O)O</code>) faqat musbat (ARG, LYS, HIS) yoki neytral qutbli rezidular bilan juftlanadi.</div>
+                                    </div>
+                                    <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+                                        <div class="font-semibold text-indigo-400 mb-1">3. ADMET Matematik Aniqlik</div>
+                                        <div class="text-slate-400">Erkin fraksiya har doim aniq <code class="text-slate-200">fu = round(100.0 - PPB, 2)</code> qoidasiga bo'ysunadi va yuqori PPB bo'lsa Developability skori moslashtiriladi.</div>
+                                    </div>
+                                    <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
+                                        <div class="font-semibold text-amber-400 mb-1">4. Top-5 IND Dossier ZIP &amp; CSV</div>
+                                        <div class="text-slate-400">Foydalanuvchi eng yaxshi 5 ta nomzodning 3 sahifalik IND PDF hisobotlarini bitta tugma bilan ZIP arxiv sifatida yuklab olishi mumkin.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-5 rounded-2xl bg-slate-950/90 border border-slate-800 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between mb-3">
+                                        <span class="text-xs font-mono text-emerald-400">IND REGULATORY DOSSIER</span>
+                                        <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300">3 SAHIFA PDF</span>
+                                    </div>
+                                    <ul class="space-y-2 text-xs text-slate-300 font-mono">
+                                        <li class="p-2 rounded bg-slate-900">Sahifa 1: Target Triangulation, 2D Tuzilma &amp; Fizik-Kimyoviy Radar</li>
+                                        <li class="p-2 rounded bg-slate-900">Sahifa 2: AutoDock Vina, 10ns MD Simulyatsiya &amp; PLIP Jadvali</li>
+                                        <li class="p-2 rounded bg-slate-900">Sahifa 3: ADMET Profili, Toksikologiya &amp; Regulyator Xulosasi</li>
+                                    </ul>
+                                </div>
+                                <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 text-center">
+                                    FDA / EMA Preklinik Standartiga Mos Vektorli Hisobot
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 7: UMAY-3 VA UMAY-4.1 (VIZIYA VA EKOSISTEMA)
+             ========================================== -->
+        <section id="slide-6" class="slide-section min-h-screen px-6 py-16 flex items-center">
+            <div class="max-w-6xl mx-auto w-full">
+                <div class="mb-10 border-b border-slate-800 pb-6">
+                    <div class="text-xs font-mono uppercase tracking-widest text-indigo-400 mb-2">06 / KEYINGI AVLOD YANGILANISHLARI</div>
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold text-white">UMAY-3 (Gen Terapiyasi) va UMAY-4.1 (Bulutli Robotik Lab)</h2>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- UMAY 3 -->
+                    <div class="glass-card rounded-3xl p-8 border-t-4 border-t-indigo-400">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-mono mb-4">
+                            <i data-lucide="dna" class="w-4 h-4"></i>
+                            UMAY-3 • GENETIC ENGINEERING ENGINE
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-white mb-3">Oqsil Bo'lmagan Joyda — Gen Muhandisligi</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                            Kichik molekulalar faqat hujayrada mavjud bo'lgan oqsillarga bog'lana oladi. Biroq <strong>SMA, Duchenne mushak distrofiyasi yoki Sanfilippo (MPS IIIC)</strong> kabi irsiy kasalliklarda gen butunlay yo'qolgan yoki stop-kodon tufayli oqsil umuman sintezlanmaydi. Bu holatda UMAY-3 ishga tushadi:
+                        </p>
+
+                        <div class="grid sm:grid-cols-2 gap-4 text-xs">
+                            <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
+                                <div class="font-bold text-indigo-400 mb-1">1. AAV Capsid Serotipi Tanlovi</div>
+                                <div class="text-slate-400">Genetik yukni aynan kerakli organga (masalan, CNS/miya uchun AAV9, mushak uchun AAVrh74) eltuvchi kapsid dizayni.</div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
+                                <div class="font-bold text-indigo-400 mb-1">2. Promotor va To'qima Selektivligi</div>
+                                <div class="text-slate-400">Genning faqat maqsadli to'qimada ifodalanishini ta'minlovchi spesifik promotor tanlovi.</div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
+                                <div class="font-bold text-indigo-400 mb-1">3. Codon Optimization</div>
+                                <div class="text-slate-400">Inson hujayrasida oqsil sintezini maksimal darajaga chiqaruvchi va immun javobni (CpG) kamaytiruvchi cDNA ketma-ketligi.</div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
+                                <div class="font-bold text-indigo-400 mb-1">4. CRISPR / Base Editing Dizayni</div>
+                                <div class="text-slate-400">Nuqtali mutatsiyalarni off-target xavfisiz tahrirlovchi yuqori aniqlikdagi gRNA ketma-ketliklari.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UMAY 4.1 -->
+                    <div class="glass-card rounded-3xl p-8 border-t-4 border-t-purple-400">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-mono mb-4">
+                            <i data-lucide="cloud-cog" class="w-4 h-4"></i>
+                            UMAY-4.1 • CLOUD AUTONOMOUS LAB API
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-white mb-3">Raqamli Dizaynni Robotik Tajribaga Ulash</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                            UMAY-4.1 tashqi foydalanuvchilar uchun taqdim etiladigan eng yuqori bosqichdir. U kompyuterda loyihalangan (<em>in silico</em>) molekulani bulutli avtonom laboratoriyalarning (<strong>Strateos, Emerald Cloud Lab</strong>) robotik qo'llariga API orqali to'g'ridan-to'g'ri ulaydi:
+                        </p>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-center gap-4">
+                                <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-300 font-mono font-bold flex items-center justify-center shrink-0">01</div>
+                                <div>
+                                    <div class="font-bold text-white">Avtomatik Protokol Yuborish (API Dispatch)</div>
+                                    <div class="text-slate-400">UMAY-2'da tanlangan molekula strukturasi va sintez protokoli bulutli laboratoriyaga JSON buyruq sifatida yuboriladi.</div>
+                                </div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-center gap-4">
+                                <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-300 font-mono font-bold flex items-center justify-center shrink-0">02</div>
+                                <div>
+                                    <div class="font-bold text-white">Robotik Sintez va Biofizik Sinov (Assay)</div>
+                                    <div class="text-slate-400">Robotik suyuqlik quyish tizimlari molekulani real oqsil ustida sinovdan o'tkazib, haqiqiy empirik <strong>Kd</strong> va <strong>IC50</strong> qiymatlarini o'lchaydi.</div>
+                                </div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 flex items-center gap-4">
+                                <div class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-300 font-mono font-bold flex items-center justify-center shrink-0">03</div>
+                                <div>
+                                    <div class="font-bold text-white">Real Empirik Ma'lumot Bilan AI'ni Qayta O'qitish</div>
+                                    <div class="text-slate-400">Laboratoriyadan qaytgan haqiqiy natijalar UMAY neyron tarmog'iga qayta kiritilib, modelning bashorat aniqligi uzluksiz oshiriladi.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SLIDE 8: BONUS — UMAY-4.2 (AUTONOMOUS BIO-FOUNDRY)
+             ========================================== -->
+        <section id="slide-7" class="slide-section min-h-screen px-6 py-16 flex items-center">
+            <div class="max-w-6xl mx-auto w-full">
+                <div class="mb-10 border-b border-slate-800 pb-6">
+                    <div class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-amber-400 mb-2">
+                        <i data-lucide="Flame" class="w-4 h-4"></i>
+                        <span>07 / BONUS VIZIYA • NEGA UMAY-4.1 BILAN TO'XTAMAYMIZ?</span>
+                    </div>
+                    <h2 class="font-display text-3xl sm:text-5xl font-bold text-white">UMAY-4.2: O'zimizning Avtonom Robotik Biyofabrikamiz</h2>
+                </div>
+
+                <div class="glass-card rounded-3xl p-8 sm:p-10 border-2 border-amber-500/40 bg-gradient-to-br from-amber-500/10 via-slate-950 to-emerald-500/10 mb-8">
+                    <div class="max-w-4xl">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-mono font-bold mb-4 border border-amber-500/40">
+                            FAQAT UMAY JAMOASI UCHUN OCHIQ (PROPRIETARY IN-HOUSE BIO-FOUNDRY)
+                        </div>
+                        <h3 class="font-display text-2xl sm:text-4xl font-bold text-white mb-4 leading-snug">
+                            To'xtovsiz Ishlaydigan, O'zi Gipoteza Yaratib, Tajriba O'tkazadigan Sun'iy Intellekt Laboratoriyasi
+                        </h3>
+                        <p class="text-sm sm:text-base text-slate-200 leading-relaxed mb-8">
+                            Nega oldingi modulni <strong>UMAY-4.1</strong> deb nomladik? Chunki UMAY-4.1 — tashqi foydalanuvchilar va farmatsevtika kompaniyalari foydalanishi mumkin bo'lgan oxirgi bulutli versiyadir. <strong>UMAY-4.2</strong> esa faqat bizning o'zimiz uchun ishlaydigan, o'zimiz barpo etadigan <strong>jismoniy robotik laboratoriyamizdir</strong>.
+                        </p>
+                    </div>
+
+                    <!-- 4-Step Self-Driving Loop -->
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                        <div class="p-5 rounded-2xl bg-slate-950/85 border border-amber-500/30">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="font-mono text-xs text-amber-400 font-bold">1-QADAM</span>
+                                <i data-lucide="brain-circuit" class="w-5 h-5 text-amber-400"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-white text-base mb-2">Avtonom Gipoteza</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                AI inson buyrug'ini kutmasdan 24/7 rejimda global genomik va klinik ma'lumotlarni tahlil qilib, davosi yo'q kasalliklar uchun yangi ilmiy gipoteza va target'larni o'zi kashf etadi.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-slate-950/85 border border-emerald-500/30">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="font-mono text-xs text-emerald-400 font-bold">2-QADAM</span>
+                                <i data-lucide="atom" class="w-5 h-5 text-emerald-400"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-white text-base mb-2">De Novo Molekulyar Dizayn</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Kvant kimyosi, molekulyar dinamika va generativ RL yordamida eng yuqori selektivlikka ega yangi dori molekulalarini va sintez marshrutini loyihalaydi.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-slate-950/85 border border-cyan-500/30">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="font-mono text-xs text-cyan-400 font-bold">3-QADAM</span>
+                                <i data-lucide="bot" class="w-5 h-5 text-cyan-400"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-white text-base mb-2">Robotik Sintez va Sinov</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                O'zimizning robotik laboratoriyamizdagi avtomatlashtirilgan sintezatorlar va yuqori o'tkazuvchanlikdagi skrining robotlari molekulani fizik sintez qiladi va hujayrada sinaydi.
+                            </p>
+                        </div>
+
+                        <div class="p-5 rounded-2xl bg-slate-950/85 border border-indigo-500/30">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="font-mono text-xs text-indigo-400 font-bold">4-QADAM</span>
+                                <i data-lucide="infinity" class="w-5 h-5 text-indigo-400"></i>
+                            </div>
+                            <h4 class="font-display font-bold text-white text-base mb-2">O'z-o'zini O'qitish &amp; Patent</h4>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Har bir muvaffaqiyatli va muvaffaqiyatsiz tajribadan AI o'zini-o'zi o'qitadi va bizga to'liq tasdiqlangan, xalqaro patentga (IP) tayyor original dori molekulalarini chiqarib beradi.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dual-Engine Summary -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="glass-card p-6 rounded-2xl border-l-4 border-l-emerald-400">
+                        <div class="text-xs font-mono text-emerald-400 mb-1">1-DVIGATEL: TASHQI BOZOR (UMAY 1 ➔ 4.1)</div>
+                        <h4 class="font-display font-bold text-white text-lg mb-2">Global SaaS Platforma Daromadi</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            UMAY-1 ni bepul (Freemium) tarqatib minglab olimlar va biotexnologik kompaniyalarni ekotizimga jalb qilamiz, UMAY-2, UMAY-3 va UMAY-4.1 obunalari orqali doimiy barqaror pul oqimini (Cash Flow) yaratamiz.
+                        </p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border-l-4 border-l-amber-400">
+                        <div class="text-xs font-mono text-amber-400 mb-1">2-DVIGATEL: ICHKI BIYOFABRIKA (UMAY-4.2)</div>
+                        <h4 class="font-display font-bold text-white text-lg mb-2">Xususiy Dori Patentlari (Proprietary IP)</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            UMAY-4.2 faqat biz uchun kechayu-kunduz ishlab, original molekula va gen terapiyasi patentlarini yaratadi. Bu esa kompaniyamizni global farmatsevtika gigantlari qatoriga olib chiquvchi asosiy strategik qudratdir.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING SLIDE CONTROLLER (VISIBLE IN SLIDE MODE) -->
+    <div id="slideController" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50 glass-card px-5 py-2.5 rounded-2xl border border-slate-700/80 items-center gap-5 shadow-2xl">
+        <button onclick="prevSlide()" class="flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-emerald-400 transition">
+            <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            <span>Oldingi</span>
+        </button>
+        <div class="h-4 w-px bg-slate-700"></div>
+        <span id="slideCounter" class="font-mono text-xs font-bold text-emerald-400">1 / 8</span>
+        <div class="h-4 w-px bg-slate-700"></div>
+        <button onclick="nextSlide()" class="flex items-center gap-1.5 text-xs font-semibold text-slate-300 hover:text-emerald-400 transition">
+            <span>Keyingi</span>
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        let isSlideMode = false;
+        let currentSlide = 0;
+        const totalSlides = 8;
+
+        function updateSlideUI() {
+            const sections = document.querySelectorAll('.slide-section');
+            sections.forEach((sec, idx) => {
+                if (idx === currentSlide) {
+                    sec.classList.add('active-slide');
+                } else {
+                    sec.classList.remove('active-slide');
+                }
+            });
+
+            const counter = document.getElementById('slideCounter');
+            if (counter) {
+                counter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+            }
+
+            // Highlight active nav button
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach((btn, idx) => {
+                if (idx === currentSlide) {
+                    btn.classList.add('bg-emerald-500/20', 'text-emerald-400');
+                } else {
+                    btn.classList.remove('bg-emerald-500/20', 'text-emerald-400');
+                }
+            });
+        }
+
+        function togglePresentationMode() {
+            isSlideMode = !isSlideMode;
+            const body = document.body;
+            const controller = document.getElementById('slideController');
+            const modeText = document.getElementById('modeToggleText');
+
+            if (isSlideMode) {
+                body.classList.add('slide-mode');
+                controller.classList.remove('hidden');
+                controller.classList.add('flex');
+                modeText.textContent = 'Veb-Sahifa Rejimi';
+                updateSlideUI();
+            } else {
+                body.classList.remove('slide-mode');
+                controller.classList.add('hidden');
+                controller.classList.remove('flex');
+                modeText.textContent = 'Slayd Rejimi';
+                const targetEl = document.getElementById(`slide-${currentSlide}`);
+                if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function goToSlide(index) {
+            currentSlide = Math.max(0, Math.min(totalSlides - 1, index));
+            if (isSlideMode) {
+                updateSlideUI();
+            } else {
+                const targetEl = document.getElementById(`slide-${currentSlide}`);
+                if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlideUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlideUI();
+            }
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        function swapFounderPhotos() {
+            const img1 = document.getElementById('img-sayidmurod');
+            const img2 = document.getElementById('img-aslbek');
+            const tmp = img1.src;
+            img1.src = img2.src;
+            img2.src = tmp;
+        }
+
+        function switchUmay1Tab(tab) {
+            const tabs = ['comp', 'flow', 'router'];
+            tabs.forEach(t => {
+                const content = document.getElementById(`u1-tab-${t}`);
+                const btn = document.getElementById(`u1-btn-${t}`);
+                if (t === tab) {
+                    content.classList.remove('hidden');
+                    btn.className = 'px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-500 text-slate-950 transition';
+                } else {
+                    content.classList.add('hidden');
+                    btn.className = 'px-4 py-2 rounded-xl text-xs font-semibold glass-card text-slate-300 hover:text-white transition';
+                }
+            });
+        }
+
+        function switchUmay2Tab(tab) {
+            const tabs = ['arch', 'rl', 'ind'];
+            tabs.forEach(t => {
+                const content = document.getElementById(`u2-tab-${t}`);
+                const btn = document.getElementById(`u2-btn-${t}`);
+                if (t === tab) {
+                    content.classList.remove('hidden');
+                    btn.className = 'px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500 text-slate-950 transition';
+                } else {
+                    content.classList.add('hidden');
+                    btn.className = 'px-4 py-2 rounded-xl text-xs font-semibold glass-card text-slate-300 hover:text-white transition';
+                }
+            });
+        }
+
+        // Keyboard navigation for Slide Mode
+        window.addEventListener('keydown', (e) => {
+            if (!isSlideMode) return;
+            if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+    </script>
+</body>
+</html>
